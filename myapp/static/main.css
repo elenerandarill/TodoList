@@ -16,9 +16,8 @@
 
 .errortext {
     font-size:0.9rem;
-    font-family: "Arial Black", monospace;
+    font-family: "Arial", monospace;
     color: darkred;
-    backgroud-color: red;
 }
 
 .margin {

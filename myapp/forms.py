@@ -6,12 +6,12 @@ from wtforms.validators import DataRequired, Email, EqualTo, Length
 class RegisterForm(FlaskForm):
     uname = StringField("User Name", validators=[DataRequired(), Length(min=2)])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired(), Length(min=3)])
     password_conf = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
     submit = SubmitField("Register")
 
-    def validate_username(self):
-        pass
-
-    def validate_email(self):
-        pass
+    # def validate_username(self):
+    #     pass
+    #
+    # def validate_email(self):
+    #     pass
