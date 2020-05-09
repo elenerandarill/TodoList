@@ -22,3 +22,10 @@ bcrypt = Bcrypt(app)
 
 
 from . import routes, models
+
+"""But with database migration support, after you modify the models in your application
+you generate a new migration script (flask db migrate), you probably review it to make
+sure the automatic generation did the right thing, and then apply the changes to your 
+development database (flask db upgrade). You will add the migration script to source 
+control and commit it.(flask db downgrade) command undoes the last migration. 
+You can downgrade the database, delete the migration script, and then generate a new one to replace it"""
