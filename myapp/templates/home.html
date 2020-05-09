@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div>Would you like to <a href="{{ url_for('register') }}">REGISTER</a> ?</div>
-    <div>This is Home Page for Users <b>TO DO LIST</b></div>
+    <div class="margin">
+        <div class="plaintext">
+            <div>Hello and welcome to my <b>To-Do-List</b> Website!</div>
+            <div>Would you like to <a href="{{ url_for('register') }}">REGISTER</a> ?</div>
+        </div>
+    </div>
 {% endblock %}

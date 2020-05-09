@@ -1,15 +1,61 @@
 {% extends "layout.html" %}
 {% block content %}
-    {{ form.hidden_tag() }}
-    <form method="post" action="">
-        <fieldset>
-            <div>
-                {{ form.name.label() }}
-                {{ form.name(size=16) }}
+    <div class="margin">
+        <div class="plaintext">Here you can register.</div>
+        <br>
+        <form method="post" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="center">
+                <div class="turqtext">
+                    {{ form.uname.label }}
+                    {% if form.uname.errors %}
+                        {{ form.uname(size=16) }}
+                            <div class="invalid-feedback">
+                                {% for error in form.uname.errors %}
+                                    <span class="errortext">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                    {% else %}
+                        {{ form.uname(size=40) }}
+                    {% endif %}
+                </div>
+                <div class="turqtext">
+                    {{ form.email.label }}
+                    {% if form.email.errors %}
+                        {{ form.email(size=20) }}
+                            {% for error in form.email.errors %}
+                                <span class="errortext">{{ error }}</span>
+                            {% endfor %}
+                    {% else %}
+                        {{ form.email(size=40) }}
+                    {% endif %}
+                </div>
+                <div class="turqtext">
+                    {{ form.password.label }}
+                    {% if form.password.errors %}
+                        {{ form.password(size=20) }}
+                            {% for error in form.password.errors%}
+                                <span class="errortext">{{ error }}</span>
+                            {% endfor %}
+                    {% else %}
+                        {{ form.password(size=40) }}
+                    {% endif %}
+                </div>
+                <div class="turqtext">
+                    {{ form.password_conf.label }}
+                    {% if form.password_conf.errors %}
+                        {{ form.password_conf(size=20) }}
+                            {% for error in form.password_conf.errors %}
+                                <span class="errortext">{{ error }}</span>
+                            {% endfor %}
+                    {% else %}
+                        {{ form.password_conf(size=40) }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="center margin">
+                {{ form.submit(class="button") }}
             </div>
-        </fieldset>
-        <div>
-            {{ form.submit(class="button") }}
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock %}

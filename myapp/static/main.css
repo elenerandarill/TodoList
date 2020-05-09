@@ -1,0 +1,30 @@
+.turqtext {
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-family: "Gabriola", fantasy;
+    line-height: 1.5;
+    color: cadetblue;
+}
+
+.plaintext {
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-family: "Gabriola", fantasy;
+    line-height: 1.5;
+    color: dimgray;
+}
+
+.errortext {
+    font-size:0.9rem;
+    font-family: "Arial Black", monospace;
+    color: darkred;
+    backgroud-color: red;
+}
+
+.margin {
+    margin: 30px;
+}
+
+.center {
+    text-align: center;
+}
