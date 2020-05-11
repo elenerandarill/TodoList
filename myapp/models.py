@@ -4,7 +4,7 @@ from datetime import datetime
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    uname = db.Column(db.String(30), nullable=False)
+    uname = db.Column(db.String(30), nullable=False, unique=True)
     email = db.Column(db.String(40), unique=True, nullable=False)
     password_hash = db.Column(db.String, nullable=False)
     tasks = db.relationship("Task", backref="author", lazy=True)
