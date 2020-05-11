@@ -2,6 +2,7 @@
 import os
 from flask import Flask
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
@@ -19,6 +20,9 @@ migrate = Migrate(app, db)
 
 # To make password hashes.
 bcrypt = Bcrypt(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 from . import routes, models

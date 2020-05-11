@@ -1,8 +1,10 @@
+from flask_login import UserMixin
+
 from myapp import db
 from datetime import datetime
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     uname = db.Column(db.String(30), nullable=False, unique=True)
     email = db.Column(db.String(40), unique=True, nullable=False)

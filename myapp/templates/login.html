@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="margin">
+        <div  class="plaintext">
+            Here you can <b>Log In</b>.
+        </div>
+        <br>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <div class="turqtext">
+                    <b>{{ form.email.label }}</b>
+                    {{ form.email(size=30) }}
+                    {% for error in form.email.errors %}
+                        <span class="errortext">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="turqtext">
+                    <b>{{ form.password.label }}</b>
+                    {{ form.password(size=30) }}
+                    {% for error in form.password.errors %}
+                        <span class="errortext">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.remember.label }} {{ form.remember }}
+                </div>
+            </fieldset>
+            <div>
+                {{ form.submit(class="button") }}
+            </div>
+        </form>
+    </div>
+{%  endblock %}
