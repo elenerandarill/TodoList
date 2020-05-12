@@ -25,3 +25,9 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     remember = BooleanField("Remember Me")
     submit = SubmitField("Log In")
+
+
+class AddTaskForm(FlaskForm):
+    content = StringField("Write your task", validators=[DataRequired()])
+    submit = SubmitField("Add Task")
+

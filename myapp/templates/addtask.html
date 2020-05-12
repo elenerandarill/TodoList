@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="margin">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                {{ form.content.label() }}
+                {{ form.content(size=45) }}
+                {% for error in form.content.errors %}
+                    <span class="errortext">{{ error }}</span>
+                {% endfor %}
+            </fieldset>
+            {{ form.submit(class="button") }}
+        </form>
+    </div>
+{% endblock %}

@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = '2d65c65e323654552be29cc808a58eab'
 # In this program using 'flask-migrate' by Miguel Grinberg...
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///dbase.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///todolistdb.db'
 # Turns off notifications about DB changes that are going to be made.
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 

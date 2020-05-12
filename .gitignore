@@ -1,3 +1,4 @@
 .idea/
 __pycache__/
 myapp/dbase.db
+myapp/console.py

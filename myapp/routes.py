@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, request, flash
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required, current_user
 from . import app, db, bcrypt, login_manager
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, AddTaskForm
 from myapp.models import User, Task
 
 
@@ -9,7 +9,9 @@ from myapp.models import User, Task
 @app.route('/home')
 def home():
     title = "Home Page"
-    return render_template("home.html", title=title)
+    tasks = Task.query.all()
+    print(type(tasks))
+    return render_template("home.html", title=title, tasks=tasks)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -41,6 +43,7 @@ def login():
             login_user(user, remember=form.remember.data)
             # 'request.args' returns dictionary, so we get one key value by passing "next".
             next_page = request.args.get("next")
+            flash(f"User {current_user.uname} succesfully logged in", "success")
             return redirect(next_page) if next_page else redirect(url_for("home"))
         else:
             flash("Login or password incorrect.", "danger")
@@ -55,5 +58,19 @@ def load_user(user_id):
 @app.route('/logout')
 def logout():
     logout_user()
+    flash("User has been successfully logged out.", "info")
     return redirect(url_for("home"))
 
+
+@app.route('/task/add', methods=['GET', 'POST'])
+@login_required
+def add_task():
+    title = "Add Task"
+    form = AddTaskForm()
+    if form.validate_on_submit():
+        task = Task(content=form.content.data, author=current_user)
+        db.session.add(task)
+        db.session.commit()
+        flash("Your task has been added!", "success")
+        return redirect(url_for("home"))
+    return render_template("addtask.html", title=title, form=form)

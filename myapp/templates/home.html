@@ -2,21 +2,37 @@
 {% block content %}
     <div class="margin">
         <div class="plaintext">
-            <h3>
             {% if current_user.is_authenticated %}
                 <div>Hello <strong>{{ current_user.uname }}</strong>, and welcome back in <em>To-Do-List</em> Website!</div>
-            {% else %}
-                <div>Hello and welcome to my <b>To-Do-List</b> Website!</div>
-            {% endif %}
-            </h3>
-            <br>
-            {% if current_user.is_authenticated %}
-                <a href="{{ url_for('logout') }}">LOG OUT</a>
-            {% else %}
-                <a href="{{ url_for('login') }}">LOG IN</a>
                 <br>
-                <a href="{{ url_for('register') }}">REGISTER</a>
+                <div>Here is your to-do-list, and you can <a class="button" href="{{ url_for('add_task') }}">Add</a> a new task.</div>
+                <br>
+                <div>
+                    <table class="table table-stripped">
+                        <tr>
+                            <th>#</th>
+                            <th>task content</th>
+                            <th>when added</th>
+                            <th>created by</th>
+                        </tr>
+                        {% for task in tasks %}
+                            <tr>
+                                <td>{{ task.id }}</td>
+                                <td>{{ task.content }}</td>
+                                <td>{{ task.date.strftime('%Y-%m-%d') }}</td>
+                                <td>{{ task.author }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    </div>
+            {% else %}
+                <div>Hello and welcome to my <b>To-Do-List</b> Website!
+                <br>
+                    <div>To create your own list please <em>register</em> first and then <em>login</em> :)</div>
+                </div>
             {% endif %}
+            <br>
+
         </div>
     </div>
 {% endblock %}
