@@ -2,10 +2,21 @@
 {% block content %}
     <div class="margin">
         <div class="plaintext">
-            <div>Hello and welcome to my <b>To-Do-List</b> Website!</div>
+            <h3>
+            {% if current_user.is_authenticated %}
+                <div>Hello <strong>{{ current_user.uname }}</strong>, and welcome back in <em>To-Do-List</em> Website!</div>
+            {% else %}
+                <div>Hello and welcome to my <b>To-Do-List</b> Website!</div>
+            {% endif %}
+            </h3>
             <br>
-            <div>Would you like to <a href="{{ url_for('login') }}">LOG IN</a> ?</div>
-            <div>Would you like to <a href="{{ url_for('register') }}">REGISTER</a> ?</div>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout') }}">LOG OUT</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">LOG IN</a>
+                <br>
+                <a href="{{ url_for('register') }}">REGISTER</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
