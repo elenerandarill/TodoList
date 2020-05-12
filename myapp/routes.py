@@ -9,8 +9,15 @@ from myapp.models import User, Task
 @app.route('/home')
 def home():
     title = "Home Page"
-    tasks = Task.query.all()
-    print(type(tasks))
+    return render_template("home.html", title=title)
+
+
+@app.route('/home/<int:user_id>')
+@login_required
+def show_tasks(user_id):
+    title = "Your List"
+    user = User.query.get_or_404(user_id)
+    tasks = Task.query.filter_by(author=user).all()
     return render_template("home.html", title=title, tasks=tasks)
 
 
@@ -44,7 +51,7 @@ def login():
             # 'request.args' returns dictionary, so we get one key value by passing "next".
             next_page = request.args.get("next")
             flash(f"User {current_user.uname} succesfully logged in", "success")
-            return redirect(next_page) if next_page else redirect(url_for("home"))
+            return redirect(next_page) if next_page else redirect(url_for("show_tasks", user_id=user.id))
         else:
             flash("Login or password incorrect.", "danger")
     return render_template("login.html", title=title, form=form)
@@ -72,5 +79,35 @@ def add_task():
         db.session.add(task)
         db.session.commit()
         flash("Your task has been added!", "success")
-        return redirect(url_for("home"))
+        return redirect(url_for("show_tasks", user_id=current_user.id))
     return render_template("addtask.html", title=title, form=form)
+
+
+@app.route('/task/<int:task_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_task(task_id):
+    title = "Edit Post"
+    task = Task.query.get_or_404(task_id)
+    form = AddTaskForm()
+
+    if form.validate_on_submit():
+        task.content = form.content.data
+        db.session.commit()
+        flash("Post edited.", "info")
+        return redirect(url_for("show_tasks", user_id=current_user.id))
+    elif request.method == 'GET':
+        form.content.data = task.content
+    return render_template("addtask.html", title=title, form=form)
+
+
+@app.route('/task/<int:task_id>/delete')
+@login_required
+def delete_task(task_id):
+    title = "Delete Post"
+    task = Task.query.get_or_404(task_id)
+    db.session.delete(task)
+    db.session.commit()
+    flash("Post deleted.", "info")
+    return redirect(url_for("show_tasks", title=title, user_id=current_user.id))
+
+
