@@ -10,6 +10,7 @@
                 <div>
                     <table class="table table-dark">
                         <tr>
+                            <th>done?</th>
                             <th>task content</th>
                             <th>when added</th>
                             <th>created by</th>
@@ -17,7 +18,12 @@
                         </tr>
                         {% for task in tasks %}
                             <tr>
-                                <td>{{ task.content }}</td>
+                                <td><a class="button" href="{{ url_for('complete_task', task_id=task.id) }}">Done</a></td>
+                                {% if task.complete == False %}
+                                    <td>{{ task.content }}</td>
+                                {% else %}
+                                    <td><del>{{ task.content }}</del></td>
+                                {% endif %}
                                 <td>{{ task.date.strftime('%Y-%m-%d') }}</td>
                                 <td>{{ task.author.uname }}</td>
                                 <td><a class="button" href="{{ url_for('edit_task', task_id=task.id) }}">Edit</a>

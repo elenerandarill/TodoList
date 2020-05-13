@@ -2,3 +2,4 @@
 __pycache__/
 myapp/dbase.db
 myapp/console.py
+myapp/tododb.db

@@ -111,3 +111,17 @@ def delete_task(task_id):
     return redirect(url_for("show_tasks", title=title, user_id=current_user.id))
 
 
+@app.route('/task/<int:task_id>/done')
+@login_required
+def complete_task(task_id):
+    title = "Task Completed"
+    task = Task.query.get_or_404(task_id)
+    if task.complete is False:
+        task.complete = True
+        db.session.commit()
+    else:
+        task.complete = False
+        db.session.commit()
+    return redirect(url_for("show_tasks", title=title, user_id=current_user.id))
+
+

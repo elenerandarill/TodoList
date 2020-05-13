@@ -1,4 +1,5 @@
 from flask_login import UserMixin
+from wtforms import BooleanField
 
 from myapp import db
 from datetime import datetime
@@ -17,9 +18,12 @@ class User(db.Model, UserMixin):
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    complete = db.Column(db.Boolean, nullable=False, default=False)
     content = db.Column(db.String, nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
+mooioi = None
 
     def __repr__(self):
         return f"Task('{self.content}','{self.date}')"
