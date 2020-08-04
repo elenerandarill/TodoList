@@ -23,7 +23,5 @@ class Task(db.Model):
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
-mooioi = None
-
     def __repr__(self):
         return f"Task('{self.content}','{self.date}')"
